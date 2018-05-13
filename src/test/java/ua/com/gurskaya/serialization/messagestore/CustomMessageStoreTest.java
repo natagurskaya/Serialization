@@ -4,5 +4,12 @@ import ua.com.gurskaya.serialization.messagestore.service.CustomMessageStore;
 import ua.com.gurskaya.serialization.messagestore.service.MessageStore;
 
 public class CustomMessageStoreTest extends AbstractMessageStoreTest {
-    MessageStore getStore (){return new CustomMessageStore("src/test/resources/custom.ser");}
+    MessageStore getStore() {
+        return new CustomMessageStore("src/test/resources/custom.ser");
+    }
+
+    @Override
+    String getPath() {
+        return "src/test/resources/custom.ser";
+    }
 }

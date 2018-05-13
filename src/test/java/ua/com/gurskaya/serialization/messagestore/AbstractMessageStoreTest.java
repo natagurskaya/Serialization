@@ -1,12 +1,16 @@
 package ua.com.gurskaya.serialization.messagestore;
 
+import org.junit.Before;
 import org.junit.Test;
 import ua.com.gurskaya.serialization.messagestore.entity.Message;
 import ua.com.gurskaya.serialization.messagestore.service.MessageStore;
 
+import java.io.File;
+import java.io.IOException;
 import java.time.LocalDate;
 import java.util.Collection;
 
+import static junit.framework.TestCase.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 
@@ -15,6 +19,17 @@ public abstract class AbstractMessageStoreTest {
     private MessageStore messageStore = getStore();
 
     abstract MessageStore getStore();
+
+    abstract String getPath();
+
+    @Before
+    public void setFile() throws IOException {
+        File file = new File(getPath());
+        if (file.exists()) {
+            file.delete();
+            file.createNewFile();
+        }
+    }
 
     @Test
     public void testPersistRead() {
@@ -29,19 +44,13 @@ public abstract class AbstractMessageStoreTest {
         messageTwo.setDate(LocalDate.now());
         messageTwo.setContent("Hello man");
 
-        /*LinkedList<Message> list = new LinkedList<>();
-        list.add(message);
-        list.add(messageTwo);*/
-
         //when
         messageStore.persist(message);
         messageStore.persist(messageTwo);
         Collection<Message> messages = messageStore.read();
-        System.out.println(messages);
 
         //then
-        assertTrue(messages.contains(message));
-        assertTrue(messages.contains(messageTwo));
+        assertEquals(2, messages.size());
     }
 }
 

@@ -43,9 +43,10 @@ public class SerializationMessageStore implements MessageStore {
             throw new RuntimeException("Could not write data", e);
         }
     }
-    private File getFile(){
+
+    private File getFile() {
         File file = new File(pathToFile);
-        if(!file.exists()){
+        if (!file.exists()) {
             throw new RuntimeException("File doesn't exist");
         }
         return file;

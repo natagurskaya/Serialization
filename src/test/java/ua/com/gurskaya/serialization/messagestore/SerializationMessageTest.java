@@ -5,5 +5,12 @@ import ua.com.gurskaya.serialization.messagestore.service.SerializationMessageSt
 
 
 public class SerializationMessageTest extends AbstractMessageStoreTest {
-   MessageStore getStore (){return new SerializationMessageStore("src/test/resources/serialized.ser");}
+    MessageStore getStore() {
+        return new SerializationMessageStore("src/test/resources/serialized.ser");
+    }
+
+    @Override
+    String getPath() {
+        return "src/test/resources/serialized.ser";
+    }
 }

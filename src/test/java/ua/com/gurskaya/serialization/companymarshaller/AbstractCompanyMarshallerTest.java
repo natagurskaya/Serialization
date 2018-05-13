@@ -1,10 +1,13 @@
 package ua.com.gurskaya.serialization.companymarshaller;
 
+import org.junit.Before;
 import org.junit.Test;
 import ua.com.gurskaya.serialization.companymarshaller.entity.Company;
 import ua.com.gurskaya.serialization.companymarshaller.entity.Employee;
 import ua.com.gurskaya.serialization.companymarshaller.service.CompanyMarshaller;
 
+import java.io.File;
+import java.io.IOException;
 import java.time.LocalDate;
 import java.time.Month;
 import java.util.ArrayList;
@@ -14,10 +17,22 @@ import static org.junit.Assert.assertEquals;
 
 public abstract class AbstractCompanyMarshallerTest {
     private CompanyMarshaller companyMarshaller = getCompanyMarshaller();
+
     abstract CompanyMarshaller getCompanyMarshaller();
 
+    abstract String getPath();
+
+    @Before
+    public void setFile() throws IOException {
+        File file = new File(getPath());
+        if (file.exists()) {
+            file.delete();
+            file.createNewFile();
+        }
+    }
+
     @Test
-    public void testMarshallDemarshall(){
+    public void testMarshallDemarshall() {
         //prepare
         Employee employee = new Employee();
         employee.setId(1);
@@ -38,6 +53,7 @@ public abstract class AbstractCompanyMarshallerTest {
         Company demarshalledCompamy = companyMarshaller.demarshall();
 
         //then
-        assertEquals(company.toString(), demarshalledCompamy.toString());
+        assertEquals(company.getId(), demarshalledCompamy.getId());
+        assertEquals(company.getName(), demarshalledCompamy.getName());
     }
 }

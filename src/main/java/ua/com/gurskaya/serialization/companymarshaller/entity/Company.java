@@ -4,14 +4,11 @@ import javax.xml.bind.annotation.*;
 import java.util.List;
 
 @XmlRootElement
-@XmlAccessorType(XmlAccessType.NONE)
-@XmlType(propOrder = { "id", "name", "employees" }, name = "company")
+@XmlAccessorType(XmlAccessType.FIELD)
+
 public class Company {
-    @XmlElement
     private int id;
-    @XmlElement
     private String name;
-    @XmlElement
     private List<Employee> employees;
 
     public int getId() {

@@ -1,17 +1,19 @@
 package ua.com.gurskaya.serialization.companymarshaller.entity;
 
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlType;
+import ua.com.gurskaya.serialization.companymarshaller.util.LocalDateAdapter;
+
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import java.time.LocalDate;
-@XmlType(propOrder = { "id", "name", "salary", "birth"}, name = "employee")
+
+@XmlAccessorType(XmlAccessType.FIELD)
+
 public class Employee {
-    @XmlElement
     private int id;
-    @XmlElement
     private String name;
-    @XmlElement
     private double salary;
-    @XmlElement
+    @XmlJavaTypeAdapter(LocalDateAdapter.class)
     private LocalDate birth;
 
     public int getId() {

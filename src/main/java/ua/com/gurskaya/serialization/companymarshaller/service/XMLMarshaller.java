@@ -9,8 +9,11 @@ import javax.xml.bind.Unmarshaller;
 import java.io.File;
 
 public class XMLMarshaller implements CompanyMarshaller {
-    private String pathToFile = "src/main/resources/company.xml";
-    private File file = new File(pathToFile);
+    private String pathToFile;
+
+    public XMLMarshaller(String pathToFile) {
+        this.pathToFile = pathToFile;
+    }
 
     @Override
     public void marshall(Company company) {
@@ -18,7 +21,7 @@ public class XMLMarshaller implements CompanyMarshaller {
             JAXBContext jaxbContext = JAXBContext.newInstance(Company.class);
             Marshaller marshaller = jaxbContext.createMarshaller();
             marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
-            marshaller.marshal(company, file);
+            marshaller.marshal(company, new File(pathToFile));
         } catch (JAXBException e) {
             throw new RuntimeException("Error when converting object to XML", e);
         }
@@ -31,7 +34,7 @@ public class XMLMarshaller implements CompanyMarshaller {
         try {
             JAXBContext jaxbContext = JAXBContext.newInstance(Company.class);
             Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
-            company = (Company) unmarshaller.unmarshal(file);
+            company = (Company) unmarshaller.unmarshal(new File(pathToFile));
 
         } catch (JAXBException e) {
             throw new RuntimeException("Error when converting XML to object", e);

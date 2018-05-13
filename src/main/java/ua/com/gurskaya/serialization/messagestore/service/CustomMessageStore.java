@@ -59,9 +59,9 @@ public class CustomMessageStore implements MessageStore {
         }
     }
 
-    private File getFile(){
+    private File getFile() {
         File file = new File(pathToFile);
-        if(!file.exists()){
+        if (!file.exists()) {
             throw new RuntimeException("File doesn't exist");
         }
         return file;
